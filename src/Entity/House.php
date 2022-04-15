@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\HouseRepository;
@@ -42,6 +44,11 @@ class House
      * @ORM\ManyToOne(targetEntity=District::class, inversedBy="houses")
      */
     private $district;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $number;
 
     /**
      * @ORM\OneToMany(targetEntity=Apartment::class, mappedBy="house")
@@ -127,6 +134,18 @@ class House
             $this->apartments[] = $apartment;
             $apartment->setHouse($this);
         }
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }
