@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ApartmentRepository;
@@ -38,6 +40,11 @@ class Apartment
      * @ORM\Column(type="integer", nullable=true)
      */
     private $number;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=House::class, inversedBy="apartments")
+     */
+    private $house;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -137,14 +144,14 @@ class Apartment
         return $this;
     }
 
-    public function removePenance(Penance $penance): self
+    public function getHouse(): ?House
     {
-        if ($this->penances->removeElement($penance)) {
-            // set the owning side to null (unless already changed)
-            if ($penance->getApartment() === $this) {
-                $penance->setApartment(null);
-            }
-        }
+        return $this->house;
+    }
+
+    public function setHouse(House $house): self
+    {
+        $this->house = $house;
 
         return $this;
     }

@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\HouseRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +39,21 @@ class House
      * @ORM\Column(type="integer", nullable=true)
      */
     private $apartmentsQuantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=District::class, inversedBy="houses")
+     */
+    private $district;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $number;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Apartment::class, mappedBy="house")
+     */
+    private $apartments;
 
     public function getId(): ?int
     {
@@ -86,6 +104,48 @@ class House
     public function setApartmentsQuantity(?int $apartmentsQuantity): self
     {
         $this->apartmentsQuantity = $apartmentsQuantity;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?District
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(District $district): self
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Apartment[]
+     */
+    public function getApartments(): Collection
+    {
+        return $this->apartments;
+    }
+
+    public function addApartment(Apartment $apartment): self
+    {
+        if (!$this->apartments->contains($apartment)) {
+            $this->apartments[] = $apartment;
+            $apartment->setHouse($this);
+        }
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

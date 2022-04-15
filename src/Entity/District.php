@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\DistrictRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +25,11 @@ class District
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=House::class, mappedBy="district")
+     */
+    private $houses;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +43,24 @@ class District
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|House[]
+     */
+    public function getHouses(): Collection
+    {
+        return $this->houses;
+    }
+
+    public function addHouse(House $house): self
+    {
+        if (!$this->houses->contains($house)) {
+            $this->houses[] = $house;
+            $house->setDistrict($this);
+        }
 
         return $this;
     }
