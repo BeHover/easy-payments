@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\HouseRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +37,16 @@ class House
      * @ORM\Column(type="integer", nullable=true)
      */
     private $apartmentsQuantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=District::class, inversedBy="houses")
+     */
+    private $district;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Apartment::class, mappedBy="house")
+     */
+    private $apartments;
 
     public function getId(): ?int
     {
@@ -86,6 +97,36 @@ class House
     public function setApartmentsQuantity(?int $apartmentsQuantity): self
     {
         $this->apartmentsQuantity = $apartmentsQuantity;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?District
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(District $district): self
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Apartment[]
+     */
+    public function getApartments(): Collection
+    {
+        return $this->apartments;
+    }
+
+    public function addApartment(Apartment $apartment): self
+    {
+        if (!$this->apartments->contains($apartment)) {
+            $this->apartments[] = $apartment;
+            $apartment->setHouse($this);
+        }
 
         return $this;
     }
