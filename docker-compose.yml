@@ -1,16 +1,92 @@
-version: '3'
+version: '3.5'
 
 services:
-  db:
-    image: mariadb:10.2.31
-    container_name: easy-payments-db
+  mysql_easy_payments:
+    image: mysql:5.7
+    container_name: mysql_easy_payments
     ports:
-      - "${DATABASE_PORT}:3306"
+      - "${DATABASE_EXTERNAL_PORT}:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'easy-payments'
+      MYSQL_DATABASE: "${DATABASE_NAME}"
+      MYSQL_USER: "${DATABASE_USER}"
+      MYSQL_PASSWORD: "${DATABASE_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${DATABASE_PASSWORD}"
     volumes:
       - db-data:/var/lib/mysql
+    networks:
+      - easy-payments
+
+  fpm_easy_payments:
+    container_name: fpm_easy_payments
+    build:
+      context: .
+      dockerfile: ./docker/fpm/Dockerfile
+    volumes:
+      - ./:/var/www/symfony:cached
+    ports:
+      - "9002:9000"
+    networks:
+      - easy-payments
+    depends_on:
+      - loki_easy_payments
+
+  nginx_easy_payments:
+    container_name: nginx_easy_payments
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./docker/nginx/nginx-conf.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www/easy-payments
+      - ./docker/nginx/logs/:/var/log/nginx:cached
+    depends_on:
+      - fpm_easy_payments
+    links:
+      - fpm_easy_payments
+    ports:
+      - "8080:80"
+    networks:
+      - easy-payments
+
+  loki_easy_payments:
+    container_name: loki_easy_payments
+    image: grafana/loki:latest
+    volumes:
+      - ./docker/loki:/etc/loki
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
+    command: -config.file=/etc/loki/loki-config.yml
+    networks:
+      - easy-payments
+
+  promtail_easy_payments:
+    container_name: promtail_easy_payments
+    image: grafana/promtail:latest
+    volumes:
+      - /var/log:/var/log
+      - ./var/log:/var/log/symfony
+      - ./docker/nginx/logs:/var/log/nginx
+      - ./docker/promtail:/etc/promtail
+    restart: unless-stopped
+    command: -config.file=/etc/promtail/promtail-config.yml
+    networks:
+      - easy-payments
+
+  grafana_easy_payments:
+    container_name: grafana_easy_payments
+    image: grafana/grafana:latest
+    user: "1000"
+    volumes:
+      - ./docker/grafana:/var/lib/grafana
+    ports:
+      - "3010:3000"
+    restart: unless-stopped
+    networks:
+      - easy-payments
+
+networks:
+  easy-payments:
 
 volumes:
   db-data:
+    name: db-data
