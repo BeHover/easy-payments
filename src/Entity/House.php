@@ -23,7 +23,7 @@ class House
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $address;
+    private $streetName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -60,14 +60,14 @@ class House
         return $this->id;
     }
 
-    public function getAddress(): ?string
+    public function getStreetName(): ?string
     {
-        return $this->address;
+        return $this->streetName;
     }
 
-    public function setAddress(string $address): self
+    public function setStreetName(string $streetName): self
     {
-        $this->address = $address;
+        $this->streetName = $streetName;
 
         return $this;
     }
