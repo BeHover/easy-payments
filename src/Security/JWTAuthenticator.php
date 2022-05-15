@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Exceptions\TokenNotProvidedException;
+use App\Service\TokenProvider;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,11 +19,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 
 class JWTAuthenticator extends AbstractAuthenticator
 {
-    private string $jwtKey;
+    private TokenProvider $tokenProvider;
 
-    public function __construct(string $jwtKey)
+    public function __construct(TokenProvider $tokenProvider)
     {
-        $this->jwtKey = $jwtKey;
+        $this->tokenProvider = $tokenProvider;
     }
 
     public function supports(Request $request): ?bool
@@ -40,7 +41,7 @@ class JWTAuthenticator extends AbstractAuthenticator
             throw new TokenNotProvidedException('No API token provided');
         }
 
-        $data = JWT::decode($apiToken, new Key($this->jwtKey, 'HS256'));
+        $data = $this->tokenProvider->decode($apiToken);
 
         return new SelfValidatingPassport(new UserBadge($data['uuid']));
     }

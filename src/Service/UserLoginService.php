@@ -72,7 +72,7 @@ class UserLoginService
     {
         if (!$this->passwordHasher->isPasswordValid($user, $password)) {
             throw new UserValidationException(sprintf(
-                'User validation error: user with uuid: $s was given wrong password %s',
+                'User validation error: user with uuid: %s was given wrong password %s',
                 $user->getUuid(),
                 $password
             ));

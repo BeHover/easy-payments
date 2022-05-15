@@ -22,11 +22,13 @@ class HouseRepository extends ServiceEntityRepository
         parent::__construct($registry, House::class);
     }
 
-    public function getAllSettlementInfo()
+    public function getAllSettlementInfo(): array
     {
         return $this->createQueryBuilder('h')
-            ->innerJoin(District::class, 'd')
+            ->select('d, h, a')
+            ->innerJoin('h.district', 'd')
+            ->innerJoin('h.apartments', 'a')
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 }
