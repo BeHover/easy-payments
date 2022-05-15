@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\PenanceRepository;
+use App\Repository\InvoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PenanceRepository::class)
+ * @ORM\Entity(repositoryClass=InvoiceRepository::class)
  */
-class Penance
+class Invoice
 {
     /**
      * @ORM\Id
@@ -38,6 +38,11 @@ class Penance
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPayed;
 
     public function getId(): ?int
     {
@@ -88,6 +93,18 @@ class Penance
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getIsPayed(): ?bool
+    {
+        return $this->isPayed;
+    }
+
+    public function setIsPayed(bool $isPayed): self
+    {
+        $this->isPayed = $isPayed;
 
         return $this;
     }

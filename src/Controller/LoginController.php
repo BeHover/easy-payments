@@ -6,6 +6,7 @@ namespace App\Controller;
 
 
 use App\Exceptions\UserValidationException;
+use App\Service\TokenProvider;
 use App\Service\UserLoginService;
 use Doctrine\ORM\EntityNotFoundException;
 use Firebase\JWT\JWT;
@@ -18,36 +19,25 @@ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 
 class LoginController extends AbstractController
 {
-//    private UserLoginService $loginService;
-//    private string $jwtKey;
-//
-//    public function __construct(
-//        UserLoginService $loginService,
-//        string  $jwtKey
-//    ) {
-//        $this->loginService = $loginService;
-//        $this->jwtKey = $jwtKey;
-//    }
-//
-//    /**
-//     * @Route(path="/login", name="login", methods={"POST"})
-//     * @throws UserValidationException|EntityNotFoundException|UserNotFoundException
-//     */
-//    public function login(Request $request): JsonResponse
-//    {
-//        $user = $this->loginService->getUserFromLoginRequest($request);
-//        $this->loginService->validateUserPassword($user, $request->get('password'));
-//
-//        $token = JWT::encode(['uuid' => $user->getUuid()], $this->jwtKey, 'HS256');
-//
-//        return new JsonResponse(['token' => $token]);
-//    }
+    private UserLoginService $loginService;
+
+    public function __construct(
+        UserLoginService $loginService
+    ) {
+        $this->loginService = $loginService;
+    }
 
     /**
-     * @Route(path="/test", name="test", methods={"GET"})
+     * @Route(path="/login", name="login", methods={"POST"})
+     * @throws UserValidationException|EntityNotFoundException|UserNotFoundException
      */
-    public function test(LoggerInterface $logger)
+    public function login(Request $request, TokenProvider $tokenProvider): JsonResponse
     {
-        $logger->debug("test");
+        $user = $this->loginService->getUserFromLoginRequest($request);
+        $this->loginService->validateUserPassword($user, $request->get('password'));
+
+        $token = $tokenProvider->generateForUser($user);
+
+        return new JsonResponse(['token' => $token]);
     }
 }

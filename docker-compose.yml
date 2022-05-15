@@ -27,8 +27,8 @@ services:
       - "9002:9000"
     networks:
       - easy-payments
-    depends_on:
-      - loki_easy_payments
+#    depends_on:
+#      - loki_easy_payments
 
   nginx_easy_payments:
     container_name: nginx_easy_payments
@@ -46,43 +46,43 @@ services:
       - "8080:80"
     networks:
       - easy-payments
-
-  loki_easy_payments:
-    container_name: loki_easy_payments
-    image: grafana/loki:latest
-    volumes:
-      - ./docker/loki:/etc/loki
-    ports:
-      - "3100:3100"
-    restart: unless-stopped
-    command: -config.file=/etc/loki/loki-config.yml
-    networks:
-      - easy-payments
-
-  promtail_easy_payments:
-    container_name: promtail_easy_payments
-    image: grafana/promtail:latest
-    volumes:
-      - /var/log:/var/log
-      - ./var/log:/var/log/symfony
-      - ./docker/nginx/logs:/var/log/nginx
-      - ./docker/promtail:/etc/promtail
-    restart: unless-stopped
-    command: -config.file=/etc/promtail/promtail-config.yml
-    networks:
-      - easy-payments
-
-  grafana_easy_payments:
-    container_name: grafana_easy_payments
-    image: grafana/grafana:latest
-    user: "1000"
-    volumes:
-      - ./docker/grafana:/var/lib/grafana
-    ports:
-      - "3010:3000"
-    restart: unless-stopped
-    networks:
-      - easy-payments
+#
+#  loki_easy_payments:
+#    container_name: loki_easy_payments
+#    image: grafana/loki:latest
+#    volumes:
+#      - ./docker/loki:/etc/loki
+#    ports:
+#      - "3100:3100"
+#    restart: unless-stopped
+#    command: -config.file=/etc/loki/loki-config.yml
+#    networks:
+#      - easy-payments
+#
+#  promtail_easy_payments:
+#    container_name: promtail_easy_payments
+#    image: grafana/promtail:latest
+#    volumes:
+#      - /var/log:/var/log
+#      - ./var/log:/var/log/symfony
+#      - ./docker/nginx/logs:/var/log/nginx
+#      - ./docker/promtail:/etc/promtail
+#    restart: unless-stopped
+#    command: -config.file=/etc/promtail/promtail-config.yml
+#    networks:
+#      - easy-payments
+#
+#  grafana_easy_payments:
+#    container_name: grafana_easy_payments
+#    image: grafana/grafana:latest
+#    user: "1000"
+#    volumes:
+#      - ./docker/grafana:/var/lib/grafana
+#    ports:
+#      - "3010:3000"
+#    restart: unless-stopped
+#    networks:
+#      - easy-payments
 
 networks:
   easy-payments:
