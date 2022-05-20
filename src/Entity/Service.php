@@ -39,6 +39,18 @@ class Service
      */
     private $pricePerHuman;
 
+    public function __construct(
+        string $name,
+        string $provider,
+        float $pricePerUnit,
+        float $pricePerHuman
+    ) {
+        $this->name = $name;
+        $this->provider = $provider;
+        $this->pricePerUnit = $pricePerUnit;
+        $this->pricePerHuman = $pricePerHuman;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,24 +80,24 @@ class Service
         return $this;
     }
 
-    public function getPricePerUnit(): ?string
+    public function getPricePerUnit(): ?float
     {
         return $this->pricePerUnit;
     }
 
-    public function setPricePerUnit(string $pricePerUnit): self
+    public function setPricePerUnit(float $pricePerUnit): self
     {
         $this->pricePerUnit = $pricePerUnit;
 
         return $this;
     }
 
-    public function getPricePerHuman(): ?string
+    public function getPricePerHuman(): ?float
     {
         return $this->pricePerHuman;
     }
 
-    public function setPricePerHuman(string $pricePerHuman): self
+    public function setPricePerHuman(float $pricePerHuman): self
     {
         $this->pricePerHuman = $pricePerHuman;
 

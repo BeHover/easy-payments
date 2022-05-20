@@ -20,4 +20,11 @@ class ServiceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Service::class);
     }
+
+    public function findAllInArray(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

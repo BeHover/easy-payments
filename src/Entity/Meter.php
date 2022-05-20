@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
-use App\Repository\InvoiceRepository;
+use App\Repository\MeterRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=InvoiceRepository::class)
+ * @ORM\Entity(repositoryClass=MeterRepository::class)
  */
-class Invoice
+class Meter
 {
     /**
      * @ORM\Id
@@ -20,12 +18,12 @@ class Invoice
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Apartment::class, inversedBy="penances")
+     * @ORM\ManyToOne(targetEntity=Apartment::class, inversedBy="meters")
      */
     private $apartment;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Service::class)
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="meters")
      */
     private $service;
 
@@ -38,23 +36,6 @@ class Invoice
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isPayed;
-
-    public function __construct(
-        Apartment $apartment,
-        Service $service,
-        int $value
-    ) {
-        $this->apartment = $apartment;
-        $this->service = $service;
-        $this->value = $value;
-        $this->createdAt = new \DateTimeImmutable();
-        $this->isPayed = false;
-    }
 
     public function getId(): ?int
     {
@@ -105,25 +86,6 @@ class Invoice
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getIsPayed(): ?bool
-    {
-        return $this->isPayed;
-    }
-
-    public function setIsPayed(bool $isPayed): self
-    {
-        $this->isPayed = $isPayed;
-
-        return $this;
-    }
-
-    public function makePayed(): self
-    {
-        $this->isPayed = true;
 
         return $this;
     }
