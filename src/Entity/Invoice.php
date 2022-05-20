@@ -44,6 +44,18 @@ class Invoice
      */
     private $isPayed;
 
+    public function __construct(
+        Apartment $apartment,
+        Service $service,
+        int $value
+    ) {
+        $this->apartment = $apartment;
+        $this->service = $service;
+        $this->value = $value;
+        $this->createdAt = new \DateTimeImmutable();
+        $this->isPayed = false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +117,13 @@ class Invoice
     public function setIsPayed(bool $isPayed): self
     {
         $this->isPayed = $isPayed;
+
+        return $this;
+    }
+
+    public function makePayed(): self
+    {
+        $this->isPayed = true;
 
         return $this;
     }

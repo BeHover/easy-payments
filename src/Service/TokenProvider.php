@@ -22,6 +22,6 @@ class TokenProvider
 
     public function decode(string $token): array
     {
-        $data = JWT::decode($token, new Key($this->jwtKey, 'HS256'));
+        return (array) JWT::decode($token, new Key($this->jwtKey, 'HS256'));
     }
 }
