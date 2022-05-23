@@ -1,0 +1,135 @@
+@import "root.scss";
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $color-white;
+    font-family: Inter, sans-serif !important;
+}
+
+.btn {
+    &.btn-primary {
+        @include button($color-primary, $color-primary, $color-white);
+        
+        &:hover {
+            background-color: $color-btn-primary-hover;
+            border-color: $color-btn-primary-hover;
+        }
+        
+        &:focus, :active {
+            background-color: $color-btn-primary-focus;
+            border-color: $color-btn-primary-focus;
+        }
+    }
+    
+    &.btn-secondary {
+        @include button($color-light, rgba(26, 115, 232, 0.2), $color-gray);
+        
+        &:hover {
+            background-color: $color-btn-secondary-hover;
+        }
+        
+        &:focus, :active {
+            background-color: $color-btn-secondary-focus;
+        }
+    }
+    
+    &.btn-empty {
+        border: none;
+        color: $color-primary;
+    
+        &:hover, &:focus, &:active {
+            color: $color-btn-primary-hover;
+        }
+    }
+    
+    &:focus, &:active {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+}
+
+.container {
+    padding: 0 15px;
+}
+
+.flex {
+    @include flex;
+}
+
+.bg-light {
+    background-color: $color-light !important;
+}
+
+.bg-banner {
+    background-image: url(../images/design/banner-02.png);
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: 25%;
+}
+
+lord-icon {
+    height: auto;
+    width: 50px;
+    margin-left: 2px;
+}
+
+.meters-data-item {
+    border: 1px solid $color-primary;
+    background-color: $color-light;
+    color: $color-primary;
+    border-radius: .75rem;
+    align-items: center;
+    padding: 15px 20px;
+    
+    svg {
+        font-size: 24px;
+        margin-right: 14px;
+        margin-bottom: 0;
+    }
+    
+    p {
+        line-height: normal;
+        margin-bottom: 0;
+    }
+}
+
+.meters-data-content {
+    display: flex;
+    align-items: center;
+    
+    .meters-data-text {
+        p {
+            text-align: start;
+        }
+    }
+}
+
+.meters-data-text {
+    p {
+        text-align: center;
+    
+        &.title {
+            font-weight: bold;
+        }
+    
+        &.description {
+            font-weight: 300;
+        }
+    }
+}
+
+.form-control,
+.form-control:hover,
+.form-control:active,
+.form-control:focus {
+    border-color: rgba($color-primary, 0.4);
+    background-color: $color-light;
+    color: $color-secondary;
+    box-shadow: none;
+}
+
+::placeholder {
+    color: $color-secondary !important;
+    font-weight: 300;
+}

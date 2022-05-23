@@ -1,0 +1,31 @@
+$color-primary: #0d6efd;
+$color-secondary: #212529;
+
+$color-white: #fff;
+$color-light: #f5faff;
+$color-gray: #3c4043;
+
+$color-btn-primary-hover: #1b62c0;
+$color-btn-primary-focus: #1c54a0;
+
+$color-btn-secondary-hover: #ecf5ff;
+$color-btn-secondary-focus: #e9f3ff;
+
+$btn-padding: 8px 24px;
+
+@mixin flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button($background, $border, $color) {
+    background-color: $background;
+    border-color: $border;
+    color: $color;
+    padding: $btn-padding !important;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+}
