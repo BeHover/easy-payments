@@ -34,7 +34,7 @@ class InvoiceManager
             throw new LogicException("Apartment with id: $apartmentId not found!");
         }
 
-        return $this->invoiceRepository->getByApartmentId($apartmentId);
+        return $this->invoiceRepository->getNotPayedByApartmentId($apartmentId);
     }
 
     /**

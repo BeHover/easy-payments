@@ -21,14 +21,16 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
-    public function getByApartmentId(int $apartmentId): array
+    public function getNotPayedByApartmentId(int $apartmentId): array
     {
         return $this->createQueryBuilder('i')
             ->select('i, s')
             ->innerJoin('i.apartment', 'a')
             ->innerJoin('i.service', 's')
             ->where('a.id = :apartmentId')
-            ->setParameter(':apartmentId', $apartmentId)
+            ->andWhere('i.isPayed = :isPayed')
+            ->setParameter('apartmentId', $apartmentId)
+            ->setParameter('isPayed', false)
             ->getQuery()
             ->getArrayResult();
     }
