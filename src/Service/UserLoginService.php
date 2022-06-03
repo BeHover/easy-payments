@@ -39,11 +39,11 @@ class UserLoginService
      */
     public function getUserFromLoginRequest(Request $loginRequest): User
     {
-        if (!$loginRequest->request->has('apartmentId')) {
-            throw new BadRequestException('Request don\'t provide apartmentId post argument!');
-        }
-
-        $apartmentId = $loginRequest->request->get('apartmentId');
+//        if (!$loginRequest->request->has('apartmentId')) {
+//            throw new BadRequestException('Request don\'t provide apartmentId post argument!');
+//        }
+        $apartmentId = json_decode($loginRequest->getContent(), true)['apartmentId'];
+//        $apartmentId = $loginRequest->request->get('apartmentId');
         $apartment = $this->apartmentRepository->find($apartmentId);
 
         if (null === $apartment) {

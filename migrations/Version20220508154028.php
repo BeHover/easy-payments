@@ -24,6 +24,10 @@ final class Version20220508154028 extends AbstractMigration
 
         $this->addSql('INSERT INTO service (name, provider, price_per_human, price_per_unit) VALUES ("Екоспецтранс", "Екоспецтранс", 5.0, 8.0)');
         $this->addSql('INSERT INTO service (name, provider, price_per_human, price_per_unit) VALUES ("Криворіжгаз", "Криворіжгаз", 5.0, 8.0)');
+
+        $this->addSql('INSERT INTO user (uuid, roles, password, apartment_id) VALUES ("0480ec1d-1efc-4e20-8792-673ba6660677", "[]", "$2y$13$KJtGjo4a1BicWZETCeYQIeqZ0cf7JtYK5424h9Xj73ambESqFY766", 1)');
+
+        $this->addSql('INSERT INTO invoice (apartment_id, service_id, value, created_at, is_payed) VALUES (1, 1, 50, "2022-04-30 04:43:30", false)');
     }
 
     public function down(Schema $schema): void

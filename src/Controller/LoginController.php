@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-
 use App\Exceptions\UserValidationException;
 use App\Service\TokenProvider;
 use App\Service\UserLoginService;
 use Doctrine\ORM\EntityNotFoundException;
-use Firebase\JWT\JWT;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +31,7 @@ class LoginController extends AbstractController
     public function login(Request $request, TokenProvider $tokenProvider): JsonResponse
     {
         $user = $this->loginService->getUserFromLoginRequest($request);
-        $this->loginService->validateUserPassword($user, $request->get('password'));
+        $this->loginService->validateUserPassword($user, json_decode($request->getContent(), true)['password']);
 
         $token = $tokenProvider->generateForUser($user);
 
