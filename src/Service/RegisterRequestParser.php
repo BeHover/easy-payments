@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -9,13 +11,15 @@ class RegisterRequestParser
 {
     public function parseRequest(Request $request): array
     {
+        $requestBody = $request->toArray();
+
         $requestArray = [
-            'apartmentId' => $request->get('apartmentId'),
-            'passwordId' => $request->get('passwordId'),
-            'tenantName' => $request->get('tenantName'),
-            'tenantSurname' => $request->get('tenantSurname'),
-            'tenantPatronymics' => $request->get('tenantPatronymics'),
-            'password' => $request->get('password'),
+            'apartmentId' => $requestBody['apartmentId'],
+            'passwordId' => $requestBody['passwordId'],
+            'tenantName' => $requestBody['tenantName'],
+            'tenantSurname' => $requestBody['tenantSurname'],
+            'tenantPatronymics' => $requestBody['tenantPatronymics'],
+            'password' => $requestBody['password'],
         ];
         $this->validate($requestArray);
 
