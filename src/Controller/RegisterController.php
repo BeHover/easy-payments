@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -44,10 +46,11 @@ class RegisterController extends AbstractController
         $apartment->setPassport($data['passportId']);
 
         $user = new User();
-        $user->setUuid($uuidGenerator->generateId($entityManager, $user));
+        $user->setUuid((string) $uuidGenerator->generateId($entityManager, $user));
         $user->setPassword($passwordHasher->hash($data['password']));
-        $entityManager->persist($user);
+        $user->setApartment($apartment);
 
+        $entityManager->persist($user);
         $entityManager->flush();
 
         $token = $tokenProvider->generateForUser($user);

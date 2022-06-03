@@ -31,7 +31,7 @@ class LoginController extends AbstractController
     public function login(Request $request, TokenProvider $tokenProvider): JsonResponse
     {
         $user = $this->loginService->getUserFromLoginRequest($request);
-        $this->loginService->validateUserPassword($user, json_decode($request->getContent(), true)['password']);
+        $this->loginService->validateUserPassword($user, $request->toArray()['password']);
 
         $token = $tokenProvider->generateForUser($user);
 
