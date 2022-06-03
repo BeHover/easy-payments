@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\HouseRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,7 +23,7 @@ class House
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $address;
+    private $streetName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -37,19 +40,34 @@ class House
      */
     private $apartmentsQuantity;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=District::class, inversedBy="houses")
+     */
+    private $district;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $number;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Apartment::class, mappedBy="house")
+     */
+    private $apartments;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAddress(): ?string
+    public function getStreetName(): ?string
     {
-        return $this->address;
+        return $this->streetName;
     }
 
-    public function setAddress(string $address): self
+    public function setStreetName(string $streetName): self
     {
-        $this->address = $address;
+        $this->streetName = $streetName;
 
         return $this;
     }
@@ -86,6 +104,48 @@ class House
     public function setApartmentsQuantity(?int $apartmentsQuantity): self
     {
         $this->apartmentsQuantity = $apartmentsQuantity;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?District
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(District $district): self
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Apartment[]
+     */
+    public function getApartments(): Collection
+    {
+        return $this->apartments;
+    }
+
+    public function addApartment(Apartment $apartment): self
+    {
+        if (!$this->apartments->contains($apartment)) {
+            $this->apartments[] = $apartment;
+            $apartment->setHouse($this);
+        }
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

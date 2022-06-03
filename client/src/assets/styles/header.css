@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+.navbar .navbar-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  color: #212529;
+}
+.navbar .navbar-brand h5 {
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.navbar .navbar-brand p {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+.navbar .navbar-brand img {
+  height: 45px;
+  margin-right: 14px;
+}
+.navbar .navbar-toggler {
+  color: #212529 !important;
+  border: 0 !important;
+  padding: 0;
+}
+.navbar .navbar-toggler:focus {
+  text-decoration: none;
+  box-shadow: none;
+  outline: 0;
+}
+.navbar .btn:focus {
+  box-shadow: none !important;
+}
+.navbar button:focus:not(:focus-visible) {
+  outline: 0;
+}
+.navbar .btn-primary {
+  color: #fff;
+}
+
+@media only screen and (max-width: 991px) {
+  .navbar .navbar-brand h5 {
+    font-size: 17px;
+    line-height: 17px;
+  }
+  .navbar .navbar-brand p {
+    font-size: 15px;
+    line-height: 15px;
+  }
+  .navbar .navbar-brand img {
+    height: 35px;
+  }
+  .navbar .navbar-toggler-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .navbar .nav-item a {
+    margin-top: 10px;
+  }
+}
+
+/*# sourceMappingURL=header.css.map */

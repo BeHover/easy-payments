@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PenanceRepository;
+use App\Repository\MeterRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PenanceRepository::class)
+ * @ORM\Entity(repositoryClass=MeterRepository::class)
  */
-class Penance
+class Meter
 {
     /**
      * @ORM\Id
@@ -18,12 +18,12 @@ class Penance
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Apartment::class, inversedBy="penances")
+     * @ORM\ManyToOne(targetEntity=Apartment::class, inversedBy="meters")
      */
     private $apartment;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Service::class)
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="meters")
      */
     private $service;
 

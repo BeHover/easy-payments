@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: Inter, sans-serif !important;
+}
+
+.btn.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: #fff;
+  padding: 8px 24px !important;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+.btn.btn-primary:hover {
+  background-color: #1b62c0;
+  border-color: #1b62c0;
+}
+.btn.btn-primary:focus, .btn.btn-primary :active {
+  background-color: #1c54a0;
+  border-color: #1c54a0;
+}
+.btn.btn-secondary {
+  background-color: #f5faff;
+  border-color: rgba(26, 115, 232, 0.2);
+  color: #3c4043;
+  padding: 8px 24px !important;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+.btn.btn-secondary:hover {
+  background-color: #ecf5ff;
+}
+.btn.btn-secondary:focus, .btn.btn-secondary :active {
+  background-color: #e9f3ff;
+}
+.btn.btn-empty {
+  border: none;
+  color: #0d6efd;
+}
+.btn.btn-empty:hover, .btn.btn-empty:focus, .btn.btn-empty:active {
+  color: #1b62c0;
+}
+.btn:focus, .btn:active {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.container {
+  padding: 0 15px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-light {
+  background-color: #f5faff !important;
+}
+
+.bg-banner {
+  background-image: url(../images/design/banner-02.png);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 25%;
+}
+
+lord-icon {
+  height: auto;
+  width: 50px;
+  margin-left: 2px;
+}
+
+.meters-data-item {
+  border: 1px solid #0d6efd;
+  background-color: #f5faff;
+  color: #0d6efd;
+  border-radius: 0.75rem;
+  align-items: center;
+  padding: 15px 20px;
+}
+.meters-data-item svg {
+  font-size: 24px;
+  margin-right: 14px;
+  margin-bottom: 0;
+}
+.meters-data-item p {
+  line-height: normal;
+  margin-bottom: 0;
+}
+
+.meters-data-content {
+  display: flex;
+  align-items: center;
+}
+.meters-data-content .meters-data-text p {
+  text-align: start;
+}
+
+.meters-data-text p {
+  text-align: center;
+}
+.meters-data-text p.title {
+  font-weight: bold;
+}
+.meters-data-text p.description {
+  font-weight: 300;
+}
+
+.form-control,
+.form-control:hover,
+.form-control:active,
+.form-control:focus {
+  border-color: rgba(13, 110, 253, 0.4);
+  background-color: #f5faff;
+  color: #212529;
+  box-shadow: none;
+}
+
+::placeholder {
+  color: #212529 !important;
+  font-weight: 300;
+}
+
+/*# sourceMappingURL=main.css.map */

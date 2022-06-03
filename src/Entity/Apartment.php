@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ApartmentRepository;
@@ -20,24 +22,29 @@ class Apartment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tenantName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tenantSurname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tenantPatronymic;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $number;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=House::class, inversedBy="apartments")
+     */
+    private $house;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -45,13 +52,19 @@ class Apartment
     private $passport;
 
     /**
-     * @ORM\OneToMany(targetEntity=Penance::class, mappedBy="apartment")
+     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="apartment")
      */
-    private $penances;
+    private $invoices;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Meter::class, mappedBy="apartment")
+     */
+    private $meters;
 
     public function __construct()
     {
         $this->penances = new ArrayCollection();
+        $this->meters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,14 +133,14 @@ class Apartment
     }
 
     /**
-     * @return Collection|Penance[]
+     * @return Collection|Invoice[]
      */
     public function getPenances(): Collection
     {
         return $this->penances;
     }
 
-    public function addPenance(Penance $penance): self
+    public function addPenance(Invoice $penance): self
     {
         if (!$this->penances->contains($penance)) {
             $this->penances[] = $penance;
@@ -137,12 +150,42 @@ class Apartment
         return $this;
     }
 
-    public function removePenance(Penance $penance): self
+    public function getHouse(): ?House
     {
-        if ($this->penances->removeElement($penance)) {
+        return $this->house;
+    }
+
+    public function setHouse(House $house): self
+    {
+        $this->house = $house;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Meter>
+     */
+    public function getMeters(): Collection
+    {
+        return $this->meters;
+    }
+
+    public function addMeter(Meter $meter): self
+    {
+        if (!$this->meters->contains($meter)) {
+            $this->meters[] = $meter;
+            $meter->setApartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeter(Meter $meter): self
+    {
+        if ($this->meters->removeElement($meter)) {
             // set the owning side to null (unless already changed)
-            if ($penance->getApartment() === $this) {
-                $penance->setApartment(null);
+            if ($meter->getApartment() === $this) {
+                $meter->setApartment(null);
             }
         }
 

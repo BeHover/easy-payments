@@ -8,3 +8,13 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+/.env
+
+/docker/grafana/grafana.db
+/docker/grafana/alerting/1/
+/docker/nginx/logs/
+/docker/grafana/csv/
+/docker/grafana/plugins/
+/docker/grafana/png/
+/docker/grafana/storage/
