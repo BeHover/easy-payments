@@ -63,7 +63,7 @@ class Apartment
 
     public function __construct()
     {
-        $this->penances = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
         $this->meters = new ArrayCollection();
     }
 
@@ -135,16 +135,16 @@ class Apartment
     /**
      * @return Collection|Invoice[]
      */
-    public function getPenances(): Collection
+    public function getInvoices(): Collection
     {
-        return $this->penances;
+        return $this->invoices;
     }
 
-    public function addPenance(Invoice $penance): self
+    public function addInvoice(Invoice $invoice): self
     {
-        if (!$this->penances->contains($penance)) {
-            $this->penances[] = $penance;
-            $penance->setApartment($this);
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setApartment($this);
         }
 
         return $this;
