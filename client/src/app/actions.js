@@ -5,6 +5,8 @@ export const GET_SETTLEMENT_INFO = "GET_SETTLEMENT_INFO"
 export const SET_SETTLEMENT_INFO = "SET_SETTLEMENT_INFO"
 export const GET_INVOICES = "GET_INVOICES"
 export const SET_INVOICES = "SET_INVOICES"
+export const GET_SERVICES = "GET_SERVICES"
+export const SET_SERVICES = "SET_SERVICES"
 
 
 export function setCurrentUser(user)
@@ -47,7 +49,7 @@ export function setSettlementInfo(settlementData)
     }
 }
 
-export function getInvoices(apartmentId)
+export function getInvoices()
 {
     return {
         type: GET_INVOICES,
@@ -60,5 +62,21 @@ export function setInvoices(invoices)
     return {
         type: SET_INVOICES,
         payload: {invoices}
+    }
+}
+
+export function getServices()
+{
+    return {
+        type: GET_SERVICES,
+        payload: {}
+    }
+}
+
+export function setServices(services)
+{
+    return {
+        type: SET_SERVICES,
+        payload: {services}
     }
 }
