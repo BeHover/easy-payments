@@ -7,6 +7,7 @@ export const GET_INVOICES = "GET_INVOICES"
 export const SET_INVOICES = "SET_INVOICES"
 export const GET_SERVICES = "GET_SERVICES"
 export const SET_SERVICES = "SET_SERVICES"
+export const PAY_FOR_INVOICES = "PAY_FOR_INVOICES"
 
 
 export function setCurrentUser(user)
@@ -49,11 +50,11 @@ export function setSettlementInfo(settlementData)
     }
 }
 
-export function getInvoices()
+export function getInvoices(userToken)
 {
     return {
         type: GET_INVOICES,
-        payload: {}
+        payload: {userToken}
     }
 }
 
@@ -78,5 +79,13 @@ export function setServices(services)
     return {
         type: SET_SERVICES,
         payload: {services}
+    }
+}
+
+export function payForInvoices(userToken, invoicesIds)
+{
+    return {
+        type: PAY_FOR_INVOICES,
+        payload: {userToken, invoicesIds}
     }
 }
