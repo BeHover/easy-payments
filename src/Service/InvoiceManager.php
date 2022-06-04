@@ -58,7 +58,10 @@ class InvoiceManager
             throw new LogicException("Service with id: $serviceId not found!");
         }
 
-        return new Invoice($apartment, $service, $value);
+        $newInvoice = new Invoice($apartment, $service, $value);
+        $this->invoiceRepository->save($newInvoice);
+
+        return $newInvoice;
     }
 
     /**
@@ -74,6 +77,7 @@ class InvoiceManager
         }
 
         $invoice->makePayed();
+        $this->invoiceRepository->update();
     }
 
     private function isApartmentExists(int $apartmentId): bool

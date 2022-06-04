@@ -23,7 +23,7 @@ class InvoiceController extends AbstractController
     }
 
     /**
-     * @Route("/invoice", name="app_get_invoices_by_apartment_id")
+     * @Route("/invoice", name="app_get_invoices_by_apartment_id", methods={"GET"})
      * @throws EntityNotFoundException
      */
     public function getByApartmentId(): JsonResponse
@@ -47,9 +47,10 @@ class InvoiceController extends AbstractController
      */
     public function createInvoice(Request $request): JsonResponse
     {
-        $apartmentId = $request->get('apartmentId');
-        $serviceId = $request->get('serviceId');
-        $value = $request->get('value');
+        $requestData = $request->toArray();
+        $apartmentId = $requestData['apartmentId'];
+        $serviceId = $requestData['serviceId'];
+        $value = $requestData['value'];
 
         $invoice = $this->invoiceManager->createInvoice($apartmentId, $serviceId, $value);
 
@@ -66,11 +67,26 @@ class InvoiceController extends AbstractController
     public function pay(Request $request): JsonResponse
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+        if (! $user instanceof User) {
+            throw new \LogicException('Wrong user interface!');
+        }
 
-        $invoices = $request->get('invoices');
+        $apartmentId = $user->getApartment()->getId();
+        $requestData = $request->toArray();
 
-        foreach ($invoices as $invoice) {
-            $this->invoiceManager->payInvoice($invoice);
+        $requestInvoicesIds = $requestData['invoices'];
+        $userInvoicesIds = array_map(
+            fn($invoice) => $invoice['id'],
+            $this->invoiceManager->getByApartmentId($apartmentId)
+        );
+
+        if (array_diff($requestInvoicesIds, $userInvoicesIds)) {
+            throw new \LogicException("There are no invoice for this user with provided ids!");
+        }
+
+        foreach ($requestInvoicesIds as $invoiceId) {
+            $this->invoiceManager->payInvoice($invoiceId);
         }
 
         return new JsonResponse([]);
