@@ -2,7 +2,7 @@ import {combineReducers} from '@reduxjs/toolkit'
 import {
     LOGOUT_USER,
     SET_CURRENT_USER,
-    SET_SETTLEMENT_INFO,
+    SET_SETTLEMENTS,
     SET_INVOICES
 } from "../app/actions";
 
@@ -35,7 +35,7 @@ function settlementReducer(state=null, action)
 
     switch(action.type)
     {
-        case SET_SETTLEMENT_INFO:
+        case SET_SETTLEMENTS:
             copy = action.payload.settlementData;
             break;
 

@@ -11,8 +11,6 @@ $color-btn-primary-focus: #1c54a0;
 $color-btn-secondary-hover: #ecf5ff;
 $color-btn-secondary-focus: #e9f3ff;
 
-$btn-padding: 8px 24px;
-
 @mixin flex {
     display: flex;
     justify-content: center;
@@ -23,7 +21,7 @@ $btn-padding: 8px 24px;
     background-color: $background;
     border-color: $border;
     color: $color;
-    padding: $btn-padding !important;
+    padding: 8px 24px !important;
     border-radius: 6px;
     font-size: 16px;
     line-height: 24px;

@@ -2,7 +2,7 @@ export function getUserToken(store) {
     return store.user;
 }
 
-export function getSettlementInfo(store) {
+export function getSettlement(store) {
     return store.settlement;
 }
 

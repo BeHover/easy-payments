@@ -13,7 +13,7 @@ function LoginForm() {
     return (
         <form>
             <input type="text" className="form-control mt-3" placeholder="Виберіть адресу проживання" />
-            <input type="password" className="form-control my-3" placeholder="Укажіть комунальний код" />
+            <input type="password" ref={password} className="form-control my-3" placeholder="Укажіть комунальний код" />
             <div className="row">
                 <div className="col-12 col-lg-6">
                     <button onClick={onLogin} className="btn btn-primary col-12">Продовжити</button>

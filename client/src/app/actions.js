@@ -1,8 +1,9 @@
 export const SET_CURRENT_USER = "SET_CURRENT_USER"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const LOGIN_USER = "LOGIN_USER"
-export const GET_SETTLEMENT_INFO = "GET_SETTLEMENT_INFO"
-export const SET_SETTLEMENT_INFO = "SET_SETTLEMENT_INFO"
+export const REGISTER_USER = "REGISTER_USER"
+export const GET_SETTLEMENTS = "GET_SETTLEMENTS"
+export const SET_SETTLEMENTS = "SET_SETTLEMENTS"
 export const GET_INVOICES = "GET_INVOICES"
 export const SET_INVOICES = "SET_INVOICES"
 export const GET_SERVICES = "GET_SERVICES"
@@ -34,35 +35,41 @@ export function loginUser(apartmentId, password)
     }
 }
 
-export function getSettlementInfo()
+export function registerUser(
+    apartmentId,
+    tenantName,
+    tenantSurname,
+    tenantPatronymics,
+    passportId,
+    password
+)
 {
     return {
-        type: GET_SETTLEMENT_INFO,
+        type: REGISTER_USER,
+        payload: {
+            apartmentId,
+            tenantName,
+            tenantSurname,
+            tenantPatronymics,
+            passportId,
+            password
+        }
+    }
+}
+
+export function getSettlements()
+{
+    return {
+        type: GET_SETTLEMENTS,
         payload: {}
     }
 }
 
-export function setSettlementInfo(settlementData)
+export function setSettlements(settlementData)
 {
     return {
-        type: SET_SETTLEMENT_INFO,
+        type: SET_SETTLEMENTS,
         payload: {settlementData}
-    }
-}
-
-export function getInvoices(userToken)
-{
-    return {
-        type: GET_INVOICES,
-        payload: {userToken}
-    }
-}
-
-export function setInvoices(invoices)
-{
-    return {
-        type: SET_INVOICES,
-        payload: {invoices}
     }
 }
 
@@ -79,6 +86,22 @@ export function setServices(services)
     return {
         type: SET_SERVICES,
         payload: {services}
+    }
+}
+
+export function getInvoices(userToken)
+{
+    return {
+        type: GET_INVOICES,
+        payload: {userToken}
+    }
+}
+
+export function setInvoices(invoices)
+{
+    return {
+        type: SET_INVOICES,
+        payload: {invoices}
     }
 }
 

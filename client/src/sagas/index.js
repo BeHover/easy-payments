@@ -1,21 +1,25 @@
 import { all, put, call, takeEvery } from "redux-saga/effects"
+
 import {
     GET_INVOICES,
     GET_SERVICES,
-    GET_SETTLEMENT_INFO,
+    GET_SETTLEMENTS,
     LOGIN_USER,
+    PAY_FOR_INVOICES,
+    REGISTER_USER,
     setCurrentUser,
     setInvoices,
     setServices,
-    setSettlementInfo,
-    getInvoices as getInvoicesAction, PAY_FOR_INVOICES
+    setSettlements
 } from "../app/actions";
+
 import {
     loginUserService,
-    getSettlementInfoService,
-    getInvoicesService,
+    registerUserService,
+    getSettlementsService,
     getServicesService,
-    payForServicesService
+    getInvoicesService,
+    payForInvoicesService
 } from "../services";
 
 
@@ -33,13 +37,43 @@ function* loginUser(action) {
     }
 }
 
-function* getSettlementInfo(action) {
+function* registerUser(action) {
     try {
         let response = yield call(
-            getSettlementInfoService
+            registerUserService,
+            action.payload.apartmentId,
+            action.payload.tenantName,
+            action.payload.tenantSurname,
+            action.payload.tenantPatronymics,
+            action.payload.passportId,
+            action.payload.password
         );
 
-        yield put(setSettlementInfo(response.data));
+        yield put(setCurrentUser(response.data.token))
+    } catch (e)  {
+
+    }
+}
+
+function* getSettlements() {
+    try {
+        let response = yield call(
+            getSettlementsService
+        );
+
+        yield put(setSettlements(response.data));
+    } catch (e) {
+
+    }
+}
+
+function* getServices() {
+    try {
+        let response = yield call(
+            getServicesService
+        );
+
+        yield put(setServices(response.data));
     } catch (e) {
 
     }
@@ -53,18 +87,6 @@ function* getInvoices(action) {
         );
 
         yield put(setInvoices(response.data));
-    } catch (e) {
-
-    }
-}
-
-function* getServices(action) {
-    try {
-        let response = yield call(
-            getServicesService
-        );
-
-        yield put(setServices(response.data));
     } catch (e) {
 
     }
@@ -89,29 +111,34 @@ function* watchFetchAuthenticate() {
     yield takeEvery(LOGIN_USER, loginUser)
 }
 
-function* watchGetSettlementInfo() {
-    yield takeEvery(GET_SETTLEMENT_INFO, getSettlementInfo)
+function* watchFetchRegister() {
+    yield takeEvery(REGISTER_USER, registerUser)
+}
+
+function* watchGetSettlements() {
+    yield takeEvery(GET_SETTLEMENTS, getSettlements)
+}
+
+function* watchGetServices() {
+    yield takeEvery(GET_SERVICES, getServices)
 }
 
 function* watchGetInvoices() {
     yield takeEvery(GET_INVOICES, getInvoices)
 }
 
-function* watchGetServices() {
-    yield takeEvery(GET_SERVICES, getServices())
-}
-
 function* watchPayForServices() {
-    yield takeEvery(PAY_FOR_INVOICES, payForInvoices())
+    yield takeEvery(PAY_FOR_INVOICES, payForInvoices)
 }
 
 
 export default function* rootSaga() {
     yield all([
         watchFetchAuthenticate(),
-        watchGetSettlementInfo(),
-        watchGetInvoices(),
+        watchFetchRegister(),
+        watchGetSettlements(),
         watchGetServices(),
+        watchGetInvoices(),
         watchPayForServices()
     ])
 }
