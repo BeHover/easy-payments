@@ -7,14 +7,11 @@ namespace App\Service;
 use App\Entity\User;
 use App\Exceptions\UserValidationException;
 use App\Repository\ApartmentRepository;
-use App\Repository\DistrictRepository;
-use App\Repository\HouseRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 
 class UserLoginService
@@ -39,12 +36,13 @@ class UserLoginService
      */
     public function getUserFromLoginRequest(Request $loginRequest): User
     {
-        if (!$loginRequest->request->has('apartmentId')) {
+        $requestBody = $loginRequest->toArray();
+        if (!array_key_exists('apartmentId', $requestBody)) {
             throw new BadRequestException('Request don\'t provide apartmentId post argument!');
         }
 
-        $apartmentId = $loginRequest->request->get('apartmentId');
-        $apartment = $this->apartmentRepository->find($apartmentId);
+        $apartmentId = $requestBody['apartmentId'];
+        $apartment = $this->apartmentRepository->find($requestBody['apartmentId']);
 
         if (null === $apartment) {
             throw new EntityNotFoundException(sprintf(
