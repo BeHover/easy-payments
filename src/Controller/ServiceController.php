@@ -20,7 +20,6 @@ class ServiceController extends AbstractController
         $this->serviceManager = $serviceManager;
     }
 
-
     /**
      * @Route("/service", name="app_get_all_services", methods={"GET"})
      */
@@ -49,7 +48,9 @@ class ServiceController extends AbstractController
         );
 
         return new JsonResponse(
-            ['id' => $service->getId()],
+            [
+                'id' => $service->getId(),
+            ],
             Response::HTTP_CREATED
         );
     }

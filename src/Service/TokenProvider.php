@@ -19,7 +19,9 @@ class TokenProvider
 
     public function generateForUser(User $user): string
     {
-        return JWT::encode(['uuid' => $user->getUuid()], $this->jwtKey, 'HS256');
+        return JWT::encode([
+            'uuid' => $user->getUuid(),
+        ], $this->jwtKey, 'HS256');
     }
 
     public function decode(string $token): array

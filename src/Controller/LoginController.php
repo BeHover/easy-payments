@@ -35,6 +35,8 @@ class LoginController extends AbstractController
 
         $token = $tokenProvider->generateForUser($user);
 
-        return new JsonResponse(['token' => $token]);
+        return new JsonResponse([
+            'token' => $token,
+        ]);
     }
 }

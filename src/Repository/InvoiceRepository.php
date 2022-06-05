@@ -44,6 +44,5 @@ class InvoiceRepository extends ServiceEntityRepository
     public function update(): void
     {
         $this->getEntityManager()->flush();
-
     }
 }

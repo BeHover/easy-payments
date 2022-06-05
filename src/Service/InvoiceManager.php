@@ -14,7 +14,9 @@ use LogicException;
 class InvoiceManager
 {
     private InvoiceRepository $invoiceRepository;
+
     private ApartmentRepository $apartmentRepository;
+
     private ServiceRepository $serviceRepository;
 
     public function __construct(
@@ -32,7 +34,7 @@ class InvoiceManager
      */
     public function getByApartmentId(int $apartmentId): array
     {
-        if (!$this->isApartmentExists($apartmentId)) {
+        if (! $this->isApartmentExists($apartmentId)) {
             throw new LogicException("Apartment with id: $apartmentId not found!");
         }
 
