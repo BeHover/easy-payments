@@ -55,7 +55,9 @@ class InvoiceController extends AbstractController
         $invoice = $this->invoiceManager->createInvoice($apartmentId, $serviceId, $value);
 
         return new JsonResponse(
-            ['id' => $invoice->getId()],
+            [
+                'id' => $invoice->getId(),
+            ],
             Response::HTTP_CREATED
         );
     }
@@ -77,7 +79,7 @@ class InvoiceController extends AbstractController
 
         $requestInvoicesIds = $requestData['invoices'];
         $userInvoicesIds = array_map(
-            fn($invoice) => $invoice['id'],
+            fn ($invoice) => $invoice['id'],
             $this->invoiceManager->getByApartmentId($apartmentId)
         );
 

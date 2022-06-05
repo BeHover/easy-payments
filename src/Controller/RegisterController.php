@@ -35,7 +35,9 @@ class RegisterController extends AbstractController
         $apartment = $apartmentRepository->find($data['apartmentId']);
         if (null === $apartment) {
             return new JsonResponse(
-                ['message' => "Apartment with id: {$data['apartmentId']} not found!"],
+                [
+                    'message' => "Apartment with id: {$data['apartmentId']} not found!",
+                ],
                 JsonResponse::HTTP_INTERNAL_SERVER_ERROR
             );
         }
@@ -55,6 +57,8 @@ class RegisterController extends AbstractController
 
         $token = $tokenProvider->generateForUser($user);
 
-        return new JsonResponse(['token' => $token]);
+        return new JsonResponse([
+            'token' => $token,
+        ]);
     }
 }

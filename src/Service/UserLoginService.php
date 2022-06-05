@@ -17,7 +17,9 @@ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 class UserLoginService
 {
     private UserRepository $userRepository;
+
     private ApartmentRepository $apartmentRepository;
+
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(
@@ -25,11 +27,10 @@ class UserLoginService
         ApartmentRepository $apartmentRepository,
         UserPasswordHasherInterface $passwordHasher
     ) {
-       $this->userRepository = $userRepository;
-       $this->apartmentRepository = $apartmentRepository;
-       $this->passwordHasher = $passwordHasher;
+        $this->userRepository = $userRepository;
+        $this->apartmentRepository = $apartmentRepository;
+        $this->passwordHasher = $passwordHasher;
     }
-
 
     /**
      * @throws EntityNotFoundException|UserNotFoundException
@@ -37,7 +38,7 @@ class UserLoginService
     public function getUserFromLoginRequest(Request $loginRequest): User
     {
         $requestBody = $loginRequest->toArray();
-        if (!array_key_exists('apartmentId', $requestBody)) {
+        if (! array_key_exists('apartmentId', $requestBody)) {
             throw new BadRequestException('Request don\'t provide apartmentId post argument!');
         }
 
@@ -51,7 +52,9 @@ class UserLoginService
             ));
         }
 
-        $user = $this->userRepository->findOneBy(['apartment' => $apartment]);
+        $user = $this->userRepository->findOneBy([
+            'apartment' => $apartment,
+        ]);
 
         if (null === $user) {
             throw new UserNotFoundException(sprintf(
@@ -68,7 +71,7 @@ class UserLoginService
      */
     public function validateUserPassword(User $user, string $password): void
     {
-        if (!$this->passwordHasher->isPasswordValid($user, $password)) {
+        if (! $this->passwordHasher->isPasswordValid($user, $password)) {
             throw new UserValidationException(sprintf(
                 'User validation error: user with uuid: %s was given wrong password %s',
                 $user->getUuid(),
