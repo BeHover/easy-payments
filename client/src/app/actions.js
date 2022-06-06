@@ -65,11 +65,11 @@ export function getSettlements()
     }
 }
 
-export function setSettlements(settlementData)
+export function setSettlements(settlements)
 {
     return {
         type: SET_SETTLEMENTS,
-        payload: {settlementData}
+        payload: {settlements}
     }
 }
 

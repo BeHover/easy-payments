@@ -100,7 +100,7 @@ function* payForInvoices(action) {
             action.payload.invoicesIds
         );
 
-        yield put(getInvoicesAction(action.payload.userToken))
+        yield put(getInvoices(action.payload.userToken))
     } catch (e) {
 
     }

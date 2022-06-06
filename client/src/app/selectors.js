@@ -1,11 +1,11 @@
 export function getUserToken(store) {
-    return store.user;
+    return store.consumer.user;
 }
 
-export function getSettlement(store) {
-    return store.settlement;
+export function getSettlements(store) {
+    return store.settlement.settlements;
 }
 
 export function getInvoices(store) {
-    return store.invoices
+    return store.invoice.invoices;
 }
