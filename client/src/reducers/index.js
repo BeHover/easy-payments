@@ -2,74 +2,55 @@ import {combineReducers} from '@reduxjs/toolkit'
 import {
     LOGOUT_USER,
     SET_CURRENT_USER,
-    SET_SETTLEMENT_INFO,
+    SET_SETTLEMENTS,
     SET_INVOICES
 } from "../app/actions";
 
 
 function userReducer(state=null, action)
 {
-    let copy = {...state};
-
     switch(action.type)
     {
         case SET_CURRENT_USER:
-            copy = action.payload.user;
-            break;
+            return {...state, user: action.payload.user};
 
         case LOGOUT_USER:
-            copy = {};
-            break;
+            return {};
 
         default:
-            copy = {};
-            break;
+            return state;
     }
-
-    return copy;
 }
 
 function settlementReducer(state=null, action)
 {
-    let copy = {...state};
-
     switch(action.type)
     {
-        case SET_SETTLEMENT_INFO:
-            copy = action.payload.settlementData;
-            break;
+        case SET_SETTLEMENTS:
+            return {...state, settlements: action.payload.settlements};
 
         default:
-            copy = {};
-            break;
+            return state;
     }
-
-    return copy;
 }
 
 function invoicesReducer(state=null, action)
 {
-    let copy = {...state};
-
     switch(action.type)
     {
         case SET_INVOICES:
-            copy = action.payload.invoices;
-            break;
+            return {...state, invoices: action.payload.invoices};
 
         default:
-            copy = {};
-            break;
+            return state;
     }
-
-    return copy;
 }
 
 
 const mainReducer = combineReducers({
-        user: userReducer,
+        consumer: userReducer,
         settlement: settlementReducer,
-        invoices: invoicesReducer
+        invoice: invoicesReducer
     }
 )
 
