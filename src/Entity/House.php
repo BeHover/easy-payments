@@ -130,7 +130,7 @@ class House
 
     public function addApartment(Apartment $apartment): self
     {
-        if (!$this->apartments->contains($apartment)) {
+        if (! $this->apartments->contains($apartment)) {
             $this->apartments[] = $apartment;
             $apartment->setHouse($this);
         }
