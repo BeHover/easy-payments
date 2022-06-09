@@ -1,18 +1,42 @@
-import React, {useRef} from "react";
-import {useDispatch} from "react-redux";
-import {loginUser} from "../app/actions";
+import React, {useEffect, useRef} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getSettlements, loginUser} from "../app/actions";
+import {getSettlements as getSettlementsSelector} from "../app/selectors";
+import {serializeSettlements} from "../utils";
 
 
 function LoginForm() {
     let dispatch = useDispatch();
-    let password = useRef("");
+    let password = useRef(null);
+    let apartment = useRef(null);
+
+    useEffect(
+        () => {dispatch(getSettlements())},
+        [dispatch]
+    );
+    let settlements = useSelector(getSettlementsSelector);
+
+    if (null === settlements) {
+        return <div>...</div>
+    }
+
+    let serializedSettlements = serializeSettlements(settlements.settlements);
+
     let onLogin = () => {
-        dispatch(loginUser(1, password.current.value))
+        console.log(apartment.current.value);
+        dispatch(loginUser(apartment.current.value, password.current.value))
     }
 
     return (
         <form>
-            <input type="text" className="form-control mt-3" placeholder="Виберіть адресу проживання" />
+            <select ref={apartment}>
+                <option disabled value="">Оберіть адресу проживання</option>
+                {serializedSettlements.map(settlement =>
+                    <option value={settlement.id}>
+                        {settlement.name}
+                    </option>
+                )}
+            </select>
             <input type="password" ref={password} className="form-control my-3" placeholder="Укажіть комунальний код" />
             <div className="row">
                 <div className="col-12 col-lg-6">
