@@ -1,7 +1,4 @@
-import React from "react";
-
-
-function MetersDataItem({icon, title, description, data, date, sum}) {
+export default function MetersDataItem({icon, title, description, data, date, sum}) {
     return(
         <div className="meters-data-item mb-3">
             <div className="row">
@@ -36,6 +33,3 @@ function MetersDataItem({icon, title, description, data, date, sum}) {
         </div>
     );
 }
-
-
-export default MetersDataItem;

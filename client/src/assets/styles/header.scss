@@ -3,6 +3,8 @@
 @import "root.scss";
 
 .navbar {
+    border-bottom: 1px solid #e4e7ea;
+    
     .navbar-brand {
         @include flex;
         cursor: pointer;
