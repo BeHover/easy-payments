@@ -142,7 +142,7 @@ class Apartment
 
     public function addInvoice(Invoice $invoice): self
     {
-        if (!$this->invoices->contains($invoice)) {
+        if (! $this->invoices->contains($invoice)) {
             $this->invoices[] = $invoice;
             $invoice->setApartment($this);
         }
@@ -172,7 +172,7 @@ class Apartment
 
     public function addMeter(Meter $meter): self
     {
-        if (!$this->meters->contains($meter)) {
+        if (! $this->meters->contains($meter)) {
             $this->meters[] = $meter;
             $meter->setApartment($this);
         }

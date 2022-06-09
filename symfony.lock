@@ -327,6 +327,9 @@
     "symfony/yaml": {
         "version": "v5.4.3"
     },
+    "symplify/easy-coding-standard": {
+        "version": "10.2.9"
+    },
     "twig/twig": {
         "version": "v3.3.10"
     }

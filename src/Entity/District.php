@@ -57,7 +57,7 @@ class District
 
     public function addHouse(House $house): self
     {
-        if (!$this->houses->contains($house)) {
+        if (! $this->houses->contains($house)) {
             $this->houses[] = $house;
             $house->setDistrict($this);
         }

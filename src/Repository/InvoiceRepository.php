@@ -34,4 +34,15 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+
+    public function save(Invoice $invoice): void
+    {
+        $this->getEntityManager()->persist($invoice);
+        $this->update();
+    }
+
+    public function update(): void
+    {
+        $this->getEntityManager()->flush();
+    }
 }

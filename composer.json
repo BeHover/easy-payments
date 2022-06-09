@@ -24,7 +24,8 @@
     "require-dev": {
         "phpstan/phpstan": "^1.7",
         "symfony/maker-bundle": "^1.38",
-        "symfony/web-profiler-bundle": "5.4.*"
+        "symfony/web-profiler-bundle": "5.4.*",
+        "symplify/easy-coding-standard": "^10.2"
     },
     "config": {
         "allow-plugins": {
