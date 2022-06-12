@@ -7,7 +7,7 @@ import {
 } from "../app/actions";
 
 
-function userReducer(state=null, action)
+function userReducer(state={user: null}, action)
 {
     switch(action.type)
     {
@@ -22,7 +22,7 @@ function userReducer(state=null, action)
     }
 }
 
-function settlementReducer(state=null, action)
+function settlementReducer(state={settlements: null}, action)
 {
     switch(action.type)
     {
@@ -34,7 +34,7 @@ function settlementReducer(state=null, action)
     }
 }
 
-function invoicesReducer(state=null, action)
+function invoicesReducer(state={invoices: null}, action)
 {
     switch(action.type)
     {

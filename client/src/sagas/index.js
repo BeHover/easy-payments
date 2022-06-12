@@ -21,6 +21,7 @@ import {
     getInvoicesService,
     payForInvoicesService
 } from "../services";
+import {serializeInvoices} from "../utils";
 
 
 function* loginUser(action) {
@@ -86,7 +87,7 @@ function* getInvoices(action) {
             action.payload.userToken
         );
 
-        yield put(setInvoices(response.data));
+        yield put(setInvoices(serializeInvoices(response.data)));
     } catch (e) {
 
     }

@@ -1,8 +1,16 @@
 import React from "react";
 import "../assets/styles/main.css";
 import NavigateButton from "../components/UI/buttons/NavigateButton";
+import {useSelector} from "react-redux";
+import {getInvoices as getInvoicesSelector} from "../app/selectors";
 
 export default function PayInvoicesPage() {
+	let invoices = useSelector(getInvoicesSelector);
+
+	if (null === invoices) {
+		return <div>...</div>
+	}
+
     return (
 		<section className="bg-light">
 			<div className="container">
@@ -13,12 +21,11 @@ export default function PayInvoicesPage() {
 								<h4 className="mb-0"><b style={{color: "#0d6efd"}}>Андрій Дмитрович</b>,</h4>
 								<p className="fw-semibold">перевірте інформацію і натисніть на кнопку, щоб перейди до оплати.</p>
 								<ul>
-									<li><p className="d-flex">Електропостачання<span className="ms-auto fw-semibold">432.45₴</span></p></li>
-									<li><p className="d-flex">Газопостачання<span className="ms-auto fw-semibold">235.29₴</span></p></li>
-									<li><p className="d-flex">Водопостачання<span className="ms-auto fw-semibold">180.89₴</span></p></li>
-									<li><p className="d-flex">Теплоенергія<span className="ms-auto fw-semibold">1435.65₴</span></p></li>
+									{invoices.invoices.map(invoice =>
+										<li><p className="d-flex">{invoice.name}<span className="ms-auto fw-semibold">{invoice.price}₴</span></p></li>
+									)}
 								</ul>
-								<NavigateButton to="/cabinet" text="Оплатити - 2284.28₴" classNames="btn btn-primary mt-auto fw-semibold" />
+								<NavigateButton to="/cabinet" text={'Оплатити - '+invoices.totalPrice+'₴'} classNames="btn btn-primary mt-auto fw-semibold" />
 							</div>
 							<div className="pay-info">
 								<h4 className="fw-bold">EasyPayments</h4>

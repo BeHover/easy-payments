@@ -7,5 +7,5 @@ export function getSettlements(store) {
 }
 
 export function getInvoices(store) {
-    return store.invoices
+    return store.invoice.invoices
 }

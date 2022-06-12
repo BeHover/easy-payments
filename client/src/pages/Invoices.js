@@ -20,7 +20,6 @@ export default function InvoicesPage() {
 	if (null === invoices) {
 		return <div>...</div>
 	}
-	console.log(invoices);
 
     return (
 		<section className="bg-light bg-banner">
@@ -36,11 +35,10 @@ export default function InvoicesPage() {
 							<p>У таблиці нижче представлена інформація про поточні показники лічильників, дату їх внесення і прораховані системою суми до сплати.</p>
 						</div>
 						<div className="col-12 col-lg-8">
-							<MetersDataItem icon="fas fa-bolt" title="Електроенергія" description="ДТЕК «Енерго»" data="283643" date="28.05.2022" sum="432.45"></MetersDataItem>
-							<MetersDataItem icon="fas fa-burn" title="Газопостачання" description="АТ «УКРГАЗ»" data="384723" date="28.05.2022" sum="235.29"></MetersDataItem>
-							<MetersDataItem icon="fas fa-tint" title="Водопостачання" description="КП «Водоканал»" data="182742" date="28.05.2022" sum="180.89"></MetersDataItem>
-							<MetersDataItem icon="fas fa-fire-alt" title="Теплоенергія" description="АТ «Теплобуд»" data="726382" date="28.05.2022" sum="1435.65"></MetersDataItem>
-							<p className="my-3 text-center text-lg-start">Загальна сума до сплати: <span className="text-primary fw-bolder">2284.28₴</span></p>
+							{invoices.invoices.map(invoice =>
+								<MetersDataItem icon={invoice.icon} title={invoice.name} description={invoice.provider} date={invoice.date} sum={invoice.price}/>
+							)}
+							<p className="my-3 text-center text-lg-start">Загальна сума до сплати: <span className="text-primary fw-bolder">{invoices.totalPrice}₴</span></p>
 							<NavigateButton to="/invoices/pay" text="Перейти до сплати" classNames="btn btn-primary col-12 col-lg-auto" />
 							<NavigateButton to="/cabinet" text="Повернутися назад" classNames="btn btn-secondary col-12 col-lg-auto ms-3 my-3 my-lg-0" />
 						</div>
