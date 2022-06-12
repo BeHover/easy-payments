@@ -1,5 +1,5 @@
 export function getUserToken(store) {
-    return store.user;
+    return store.consumer.user;
 }
 
 export function getSettlements(store) {
