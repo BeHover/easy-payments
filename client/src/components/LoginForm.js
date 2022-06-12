@@ -19,8 +19,7 @@ function LoginForm() {
     if (null === settlements) {
         return <div>...</div>
     }
-
-    let serializedSettlements = serializeSettlements(settlements.settlements);
+    let serializedSettlements = serializeSettlements(settlements);
 
     let onLogin = (event) => {
         event.preventDefault();

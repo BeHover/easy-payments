@@ -3,7 +3,7 @@ export function getUserToken(store) {
 }
 
 export function getSettlements(store) {
-    return store.settlement;
+    return store.settlement.settlements;
 }
 
 export function getInvoices(store) {
