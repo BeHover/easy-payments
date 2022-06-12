@@ -24,6 +24,9 @@ export default function PayInvoicesPage() {
 		invoicesIds.push(invoice.id)
 	}
 
+	console.log(invoicesIds);
+	console.log(invoices.invoices);
+
 	let submitPayment = (event) => {
 		event.preventDefault();
 		dispatch(payForInvoices(token, invoicesIds));

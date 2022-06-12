@@ -1,7 +1,7 @@
 import {combineReducers} from '@reduxjs/toolkit'
 import {
     SET_SETTLEMENTS,
-    SET_INVOICES
+    SET_INVOICES, SET_SERVICES
 } from "../app/actions";
 
 
@@ -29,10 +29,23 @@ function invoicesReducer(state={invoices: null}, action)
     }
 }
 
+function serviceReducer(state={services: null}, action)
+{
+    switch (action.type)
+    {
+        case SET_SERVICES:
+            return {...state, services: action.payload.services};
+
+        default:
+            return state;
+    }
+}
+
 
 const mainReducer = combineReducers({
         settlement: settlementReducer,
-        invoice: invoicesReducer
+        invoice: invoicesReducer,
+        service: serviceReducer
     }
 )
 

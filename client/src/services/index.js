@@ -56,10 +56,11 @@ export function getInvoicesService(userToken)
 
 export function payForInvoicesService(userToken, invoices)
 {
-    return axios.post(PAY_FOR_INVOICES, {
-        headers: {'X-AUTH-TOKEN': userToken},
-        invoices: invoices
-    })
+    return axios.post(
+        PAY_FOR_INVOICES,
+        {invoices: invoices},
+        {headers: {'X-AUTH-TOKEN': userToken},}
+    )
 }
 
 export function sendMetersDataService(userToken, meters)

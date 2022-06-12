@@ -7,6 +7,7 @@ export default function serializeInvoices(invoices) {
     for (const invoice of invoices) {
         serializedInvoices.totalPrice += invoice.value;
         let serializedInvoice = {
+            'id': invoice.id,
             'icon': invoice.service.icon,
             'name': invoice.service.name,
             'provider': invoice.service.provider,

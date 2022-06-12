@@ -5,3 +5,7 @@ export function getSettlements(store) {
 export function getInvoices(store) {
     return store.invoice.invoices
 }
+
+export function getServices(store) {
+    return store.service.services;
+}
