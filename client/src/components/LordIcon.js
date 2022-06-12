@@ -1,7 +1,4 @@
-import React from "react";
-
-
-function LordIcon({src, stroke}) {
+export default function LordIcon({src, stroke}) {
     return(
         <lord-icon
             src={src}
@@ -12,6 +9,3 @@ function LordIcon({src, stroke}) {
         </lord-icon>
     );
 }
-
-
-export default LordIcon;

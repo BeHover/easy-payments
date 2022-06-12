@@ -3,9 +3,9 @@ export function getUserToken(store) {
 }
 
 export function getSettlements(store) {
-    return store.settlement.settlements;
+    return store.settlement;
 }
 
 export function getInvoices(store) {
-    return store.invoice.invoices;
+    return store.invoices
 }

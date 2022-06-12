@@ -12,10 +12,8 @@ const PAY_FOR_INVOICES = BASE_URL.concat('/invoice/pay')
 export function loginUserService(apartmentId, password)
 {
     return axios.post(LOGIN_USER, {
-        data: {
-            apartmentId,
-            password
-        }
+        apartmentId,
+        password
     })
 }
 
@@ -29,14 +27,12 @@ export function registerUserService(
 )
 {
     return axios.post(REGISTER_USER, {
-        data: {
-            apartmentId,
-            tenantName,
-            tenantSurname,
-            tenantPatronymics,
-            passportId,
-            password
-        }
+        apartmentId,
+        tenantName,
+        tenantSurname,
+        tenantPatronymics,
+        passportId,
+        password
     })
 }
 
