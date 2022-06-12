@@ -3,8 +3,16 @@ import "../assets/styles/main.css";
 import UpdateMetersDataItem from "../components/UpdateMetersDataItem";
 import LordIcon from "../components/LordIcon";
 import NavigateButton from "../components/UI/buttons/NavigateButton";
+import {Navigate} from "react-router-dom";
+import getUserToken from "../utils/getUserToken";
 
 export default function MetersDataPage() {
+	const token = getUserToken();
+
+	if(!token) {
+		return <Navigate to="/login" />
+	}
+
     return (
 		<section className="bg-light bg-banner">
 			<div className="container">

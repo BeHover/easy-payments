@@ -6,7 +6,8 @@ import NavigateButton from "../components/UI/buttons/NavigateButton";
 import {useDispatch, useSelector} from "react-redux";
 import {getInvoices as getInvoicesSelector} from "../app/selectors";
 import {getInvoices} from "../app/actions";
-import {getUserToken} from "../utils";
+import getUserToken from "../utils/getUserToken";
+import {Navigate} from "react-router-dom";
 
 export default function InvoicesPage() {
 	let dispatch = useDispatch();
@@ -19,6 +20,10 @@ export default function InvoicesPage() {
 
 	if (null === invoices) {
 		return <div>...</div>
+	}
+
+	if(!token) {
+		return <Navigate to="/login" />
 	}
 
     return (

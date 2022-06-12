@@ -2,8 +2,16 @@ import React from "react";
 import "../assets/styles/main.css";
 import LoginForm from "../components/LoginForm";
 import LordIcon from "../components/LordIcon";
+import {Navigate} from "react-router-dom";
+import getUserToken from "../utils/getUserToken";
 
 export default function LoginPage() {
+	const token = getUserToken();
+
+	if(token) {
+		return <Navigate to="/cabinet" />
+	}
+
     return (
 		<section className="bg-light bg-banner">
 			<div className="d-flex align-items-center">

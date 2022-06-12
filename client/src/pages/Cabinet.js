@@ -6,15 +6,21 @@ import NavigateButton from "../components/UI/buttons/NavigateButton";
 import IconNavigateButton from "../components/UI/buttons/IconNavigateButton";
 import {getInvoices} from "../app/actions";
 import {useDispatch} from "react-redux";
-import {getUserToken} from "../utils";
+import getUserToken from "../utils/getUserToken";
+import {Navigate} from "react-router-dom";
 
 export default function CabinetPage() {
-	let dispatch = useDispatch();
-	let token = getUserToken()
+	const dispatch = useDispatch();
+	const token = getUserToken();
+
 	useEffect(
 		() => {dispatch(getInvoices(token))},
 		[dispatch]
 	);
+
+	if(!token) {
+		return <Navigate to="/login" />
+	}
 
     return (
 		<section className="bg-light">

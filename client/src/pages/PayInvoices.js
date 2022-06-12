@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import "../assets/styles/main.css";
-import NavigateButton from "../components/UI/buttons/NavigateButton";
 import {useDispatch, useSelector} from "react-redux";
 import {getInvoices as getInvoicesSelector} from "../app/selectors";
-import {getInvoices, loginUser, payForInvoices} from "../app/actions";
-import {getUserToken} from "../utils";
+import {getInvoices, payForInvoices} from "../app/actions";
+import getUserToken from "../utils/getUserToken";
 
 export default function PayInvoicesPage() {
 	let dispatch = useDispatch();
@@ -20,19 +19,14 @@ export default function PayInvoicesPage() {
 		return <div>...</div>
 	}
 
-	console.log(invoices.invoices);
 	let invoicesIds = [];
 	for (const invoice of invoices.invoices) {
 		invoicesIds.push(invoice.id)
 	}
-	console.log(invoicesIds);
 
 	let submitPayment = (event) => {
 		event.preventDefault();
-		dispatch(payForInvoices(
-			"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiMDQ4MGVjMWQtMWVmYy00ZTIwLTg3OTItNjczYmE2NjYwNjc3In0.eVICNB2LQ5QT3LNqmJkS2-FcNsUNFEMHTAzzxfTZzeQ",
-			invoicesIds
-		));
+		dispatch(payForInvoices(token, invoicesIds));
 	}
 
     return (

@@ -22,7 +22,7 @@ import {
     payForInvoicesService,
     sendMetersDataService
 } from "../services";
-import {serializeInvoices} from "../utils";
+import serializeInvoices from "../utils/serializeInvoices";
 
 
 function* loginUser(action) {
@@ -34,6 +34,7 @@ function* loginUser(action) {
         );
 
         localStorage.setItem('token', response.data.token);
+        window.location.href = window.location.protocol + '//' + window.location.host + '/cabinet';
     } catch (e) {
 
     }
