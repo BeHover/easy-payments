@@ -39,6 +39,17 @@ class Meter
      */
     private $createdAt;
 
+    public function __construct(
+        Apartment $apartment,
+        Service $service,
+        int $value
+    ) {
+        $this->apartment = $apartment;
+        $this->service = $service;
+        $this->value = $value;
+        $this->createdAt = new \DateTimeImmutable('now');
+    }
+
     public function getId(): ?int
     {
         return $this->id;
