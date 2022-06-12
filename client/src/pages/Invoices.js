@@ -4,17 +4,17 @@ import MetersDataItem from "../components/MetersDataItem";
 import LordIcon from "../components/LordIcon";
 import NavigateButton from "../components/UI/buttons/NavigateButton";
 import {useDispatch, useSelector} from "react-redux";
-import {getInvoices as getInvoicesSelector, getUserToken} from "../app/selectors";
+import {getInvoices as getInvoicesSelector} from "../app/selectors";
 import {getInvoices} from "../app/actions";
+import {getUserToken} from "../utils";
 
 export default function InvoicesPage() {
 	let dispatch = useDispatch();
-	// let userToken = useSelector(getUserToken);
+	let token = getUserToken()
 	useEffect(
-		() => {dispatch(getInvoices("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiMDQ4MGVjMWQtMWVmYy00ZTIwLTg3OTItNjczYmE2NjYwNjc3In0.eVICNB2LQ5QT3LNqmJkS2-FcNsUNFEMHTAzzxfTZzeQ"))}, //TODO: replace with userToken
+		() => {dispatch(getInvoices(token))},
 		[dispatch]
 	);
-
 	let invoices = useSelector(getInvoicesSelector);
 
 	if (null === invoices) {

@@ -1,11 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "../assets/styles/main.css";
 import LordIcon from "../components/LordIcon";
 import Hero from "../assets/images/design/hero-05.png";
 import NavigateButton from "../components/UI/buttons/NavigateButton";
 import IconNavigateButton from "../components/UI/buttons/IconNavigateButton";
+import {getInvoices} from "../app/actions";
+import {useDispatch} from "react-redux";
+import {getUserToken} from "../utils";
 
 export default function CabinetPage() {
+	let dispatch = useDispatch();
+	let token = getUserToken()
+	useEffect(
+		() => {dispatch(getInvoices(token))},
+		[dispatch]
+	);
+
     return (
 		<section className="bg-light">
 			<div className="container">

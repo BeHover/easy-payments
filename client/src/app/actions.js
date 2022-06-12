@@ -1,4 +1,3 @@
-export const SET_CURRENT_USER = "SET_CURRENT_USER"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const LOGIN_USER = "LOGIN_USER"
 export const REGISTER_USER = "REGISTER_USER"
@@ -10,15 +9,6 @@ export const GET_SERVICES = "GET_SERVICES"
 export const SET_SERVICES = "SET_SERVICES"
 export const PAY_FOR_INVOICES = "PAY_FOR_INVOICES"
 export const SEND_METERS_DATA = "SEND_METERS_DATA"
-
-
-export function setCurrentUser(user)
-{
-    return {
-        type: SET_CURRENT_USER,
-        payload: {user}
-    }
-}
 
 export function logoutUser()
 {

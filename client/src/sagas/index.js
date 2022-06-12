@@ -8,7 +8,6 @@ import {
     PAY_FOR_INVOICES,
     REGISTER_USER,
     SEND_METERS_DATA,
-    setCurrentUser,
     setInvoices,
     setServices,
     setSettlements
@@ -34,7 +33,7 @@ function* loginUser(action) {
             action.payload.password
         );
 
-        yield put(setCurrentUser(response.data.token))
+        localStorage.setItem('token', response.data.token);
     } catch (e) {
 
     }
@@ -52,7 +51,7 @@ function* registerUser(action) {
             action.payload.password
         );
 
-        yield put(setCurrentUser(response.data.token))
+        localStorage.setItem('token', response.data.token);
     } catch (e)  {
 
     }

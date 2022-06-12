@@ -1,26 +1,9 @@
 import {combineReducers} from '@reduxjs/toolkit'
 import {
-    LOGOUT_USER,
-    SET_CURRENT_USER,
     SET_SETTLEMENTS,
     SET_INVOICES
 } from "../app/actions";
 
-
-function userReducer(state={user: null}, action)
-{
-    switch(action.type)
-    {
-        case SET_CURRENT_USER:
-            return {...state, user: action.payload.user};
-
-        case LOGOUT_USER:
-            return {};
-
-        default:
-            return state;
-    }
-}
 
 function settlementReducer(state={settlements: null}, action)
 {
@@ -48,7 +31,6 @@ function invoicesReducer(state={invoices: null}, action)
 
 
 const mainReducer = combineReducers({
-        consumer: userReducer,
         settlement: settlementReducer,
         invoice: invoicesReducer
     }
