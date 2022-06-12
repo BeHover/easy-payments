@@ -7,6 +7,7 @@ import {
     LOGIN_USER,
     PAY_FOR_INVOICES,
     REGISTER_USER,
+    SEND_METERS_DATA,
     setCurrentUser,
     setInvoices,
     setServices,
@@ -19,7 +20,8 @@ import {
     getSettlementsService,
     getServicesService,
     getInvoicesService,
-    payForInvoicesService
+    payForInvoicesService,
+    sendMetersDataService
 } from "../services";
 import {serializeInvoices} from "../utils";
 
@@ -107,6 +109,18 @@ function* payForInvoices(action) {
     }
 }
 
+function* sendMetersData(action) {
+    try {
+        yield call(
+            sendMetersDataService,
+            action.payload.userToken,
+            action.payload.meters
+        );
+    } catch (e) {
+
+    }
+}
+
 
 function* watchFetchAuthenticate() {
     yield takeEvery(LOGIN_USER, loginUser)
@@ -132,6 +146,10 @@ function* watchPayForServices() {
     yield takeEvery(PAY_FOR_INVOICES, payForInvoices)
 }
 
+function* watchSendMetersData() {
+    yield takeEvery(SEND_METERS_DATA, sendMetersData)
+}
+
 
 export default function* rootSaga() {
     yield all([
@@ -140,6 +158,7 @@ export default function* rootSaga() {
         watchGetSettlements(),
         watchGetServices(),
         watchGetInvoices(),
-        watchPayForServices()
+        watchPayForServices(),
+        watchSendMetersData()
     ])
 }

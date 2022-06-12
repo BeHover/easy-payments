@@ -9,6 +9,7 @@ export const SET_INVOICES = "SET_INVOICES"
 export const GET_SERVICES = "GET_SERVICES"
 export const SET_SERVICES = "SET_SERVICES"
 export const PAY_FOR_INVOICES = "PAY_FOR_INVOICES"
+export const SEND_METERS_DATA = "SEND_METERS_DATA"
 
 
 export function setCurrentUser(user)
@@ -110,5 +111,13 @@ export function payForInvoices(userToken, invoicesIds)
     return {
         type: PAY_FOR_INVOICES,
         payload: {userToken, invoicesIds}
+    }
+}
+
+export function sendMetersData(userToken, meters)
+{
+    return {
+        type: SEND_METERS_DATA,
+        payload: {userToken, meters}
     }
 }

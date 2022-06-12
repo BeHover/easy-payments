@@ -7,6 +7,7 @@ const GET_SETTLEMENTS = BASE_URL.concat('/settlement')
 const GET_SERVICES = BASE_URL.concat('/service')
 const GET_INVOICES = BASE_URL.concat('/invoice')
 const PAY_FOR_INVOICES = BASE_URL.concat('/invoice/pay')
+const SEND_METERS_DATA = BASE_URL.concat('/meters')
 
 
 export function loginUserService(apartmentId, password)
@@ -59,4 +60,12 @@ export function payForInvoicesService(userToken, invoices)
         headers: {'X-AUTH-TOKEN': userToken},
         invoices: invoices
     })
+}
+
+export function sendMetersDataService(userToken, meters)
+{
+    return axios.posts(SEND_METERS_DATA, {
+        headers: {'X-AUTH-TOKEN': userToken},
+        meters: meters
+    });
 }
