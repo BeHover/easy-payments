@@ -94,7 +94,7 @@ function* getInvoices(action) {
 
 function* payForInvoices(action) {
     try {
-        let response = yield call(
+        yield call(
             payForInvoicesService,
             action.payload.userToken,
             action.payload.invoicesIds

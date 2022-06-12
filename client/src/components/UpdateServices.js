@@ -1,4 +1,6 @@
-export default function UpdateMetersDataItem({icon, title, description, data, date}) {
+import NavigateButton from "./UI/buttons/NavigateButton";
+
+export default function UpdateServices({icon, title, description, pricePerHumane, pricePerUnit}) {
     return(
         <div className="meters-data-item mb-3">
             <div className="row">
@@ -13,21 +15,19 @@ export default function UpdateMetersDataItem({icon, title, description, data, da
                 </div>
                 <div className="col-12 col-lg-3 mt-2 mt-lg-0">
                     <div className="meters-data-text">
-                        <p className="title">Поточні показники:</p>
-                        <p className="description">{data}</p>
+                        <p className="title">Ціна за людину:</p>
+                        <p className="description">{pricePerHumane}₴</p>
                     </div>
                 </div>
                 <div className="col-12 col-lg-3 mt-2 mt-lg-0">
                     <div className="meters-data-text">
-                        <p className="title">Дата редагування:</p>
-                        <p className="description">{date}</p>
+                        <p className="title">Ціна за одиницю:</p>
+                        <p className="description">{pricePerUnit}₴</p>
                     </div>
                 </div>
                 <div className="col-12 col-lg-3 mt-2 mt-lg-0">
                     <div className="meters-data-text">
-                        <form>
-                            <input type="text" className="form-control" placeholder="Нове значення"/>
-                        </form>
+                        <NavigateButton to="/admin/services" text="Редагувати" classNames="btn btn-primary col-12" />
                     </div>
                 </div>
             </div>

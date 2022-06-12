@@ -1,17 +1,15 @@
 import React from "react";
-
 import "../assets/styles/main.css";
 import LoginForm from "../components/LoginForm";
 import LordIcon from "../components/LordIcon";
 
-
-function LoginPage() {
+export default function LoginPage() {
     return (
 		<section className="bg-light bg-banner">
 			<div className="d-flex align-items-center">
 				<div className="container">
 					<div className="row align-items-center vh-100">
-						<div className="col-12 col-lg-6">
+						<div className="col-12 col-lg-8 col-xxl-6">
 							<h5 className="text-primary">Easy Payments - легко, швидко і захищено</h5>
 							<h1 className="fw-bold">
 								Вхід у особистий кабінет
@@ -26,6 +24,3 @@ function LoginPage() {
 		</section>
     );
 }
-
-
-export default LoginPage;
