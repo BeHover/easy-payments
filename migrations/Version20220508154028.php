@@ -38,8 +38,6 @@ final class Version20220508154028 extends AbstractMigration
             $this->addSql("INSERT INTO apartment (house_id, tenant_name, tenant_surname, tenant_patronymic, number, passport) VALUES ({$user['house_id']}, {$user['tenant_name']}, {$user['tenant_surname']}, {$user['tenant_patronymic']}, {$user['number']}, {$user['password']})");
             $this->addSql("INSERT INTO user (uuid, roles, password, apartment_id) VALUES ({$user['uuid']}, \"[]\", {$user['password']}, {$user['apartment']})");
         }
-        $this->addSql('INSERT INTO apartment (house_id, tenant_name, tenant_surname, tenant_patronymic, number, passport) VALUES (1, "Андрій", "Волощинський", "Дмитрович", 1, "83284")');
-        $this->addSql('INSERT INTO apartment (house_id, tenant_name, tenant_surname, tenant_patronymic, number, passport) VALUES (2, "Ігор", "Волощинський", "Андрійович", 43, "85484")');
 
         for ($i = 1; $i < count($users)+1; $i++) {
             foreach ($services as $serviceIndex => $service) {
