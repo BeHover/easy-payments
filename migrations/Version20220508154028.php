@@ -20,8 +20,8 @@ final class Version20220508154028 extends AbstractMigration
         ];
 
         $users = [
-            ['house_id' => 1, 'tenant_name' => "\"Андрій\"", 'tenant_surname' => "\"Волощинський\"", 'tenant_patronymic' => "\"Дмитрович\"", 'number' => 1, 'password' => "\"$2y\$13\$BAoZStg1M543qa77P64b9u3zRCpo9s41cfzJOVf9j34xLEKtjDRZ2\""],
-            ['house_id' => 2, 'tenant_name' => "\"Ігор\"", 'tenant_surname' => "\"Волощинський\"", 'tenant_patronymic' => "\"Андрійович\"", 'number' => 1, 'password' => "\"$2y\$13\$W6UjM3ULXDPKldobSjHPkeUflJSrrs2qxXStYNVtJ6.8Laiuhg0Ci\""],
+            ['house_id' => 1, 'tenant_name' => "\"Андрій\"", 'tenant_surname' => "\"Волощинський\"", 'tenant_patronymic' => "\"Дмитрович\"", 'number' => 1, 'password' => "\"$2y\$13\$BAoZStg1M543qa77P64b9u3zRCpo9s41cfzJOVf9j34xLEKtjDRZ2\"", 'uuid' => "\"0012e4d6-9153-4206-9c8c-dded4aa8dfc9\"", 'apartment' => 1],
+            ['house_id' => 2, 'tenant_name' => "\"Ігор\"", 'tenant_surname' => "\"Волощинський\"", 'tenant_patronymic' => "\"Андрійович\"", 'number' => 1, 'password' => "\"$2y\$13\$W6UjM3ULXDPKldobSjHPkeUflJSrrs2qxXStYNVtJ6.8Laiuhg0Ci\"", 'uuid' => "\"36bc7597-2c67-4909-8bec-19f22ce5e737\"", 'apartment' => 2],
         ];
 
         foreach ($services as $service) {
@@ -36,11 +36,10 @@ final class Version20220508154028 extends AbstractMigration
 
         foreach ($users as $user) {
             $this->addSql("INSERT INTO apartment (house_id, tenant_name, tenant_surname, tenant_patronymic, number, passport) VALUES ({$user['house_id']}, {$user['tenant_name']}, {$user['tenant_surname']}, {$user['tenant_patronymic']}, {$user['number']}, {$user['password']})");
+            $this->addSql("INSERT INTO user (uuid, roles, password, apartment_id) VALUES ({$user['uuid']}, \"[]\", {$user['password']}, {$user['apartment']})");
         }
         $this->addSql('INSERT INTO apartment (house_id, tenant_name, tenant_surname, tenant_patronymic, number, passport) VALUES (1, "Андрій", "Волощинський", "Дмитрович", 1, "83284")');
         $this->addSql('INSERT INTO apartment (house_id, tenant_name, tenant_surname, tenant_patronymic, number, passport) VALUES (2, "Ігор", "Волощинський", "Андрійович", 43, "85484")');
-
-        $this->addSql('INSERT INTO user (uuid, roles, password, apartment_id) VALUES ("0480ec1d-1efc-4e20-8792-673ba6660677", "[]", "$2y$13$KJtGjo4a1BicWZETCeYQIeqZ0cf7JtYK5424h9Xj73ambESqFY766", 1)');
 
         for ($i = 1; $i < count($users)+1; $i++) {
             foreach ($services as $serviceIndex => $service) {
