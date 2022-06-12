@@ -22,6 +22,11 @@ class Service
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $icon;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
 
     /**
@@ -40,11 +45,13 @@ class Service
     private $pricePerHuman;
 
     public function __construct(
+        string $icon,
         string $name,
         string $provider,
         float $pricePerUnit,
         float $pricePerHuman
     ) {
+        $this->icon = $icon;
         $this->name = $name;
         $this->provider = $provider;
         $this->pricePerUnit = $pricePerUnit;
@@ -54,6 +61,18 @@ class Service
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(string $icon): self
+    {
+        $this->icon = $icon;
+
+        return $this;
     }
 
     public function getName(): ?string
