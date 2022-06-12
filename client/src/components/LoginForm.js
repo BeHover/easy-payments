@@ -22,17 +22,17 @@ function LoginForm() {
 
     let serializedSettlements = serializeSettlements(settlements.settlements);
 
-    let onLogin = () => {
-        console.log(apartment.current.value);
+    let onLogin = (event) => {
+        event.preventDefault();
         dispatch(loginUser(apartment.current.value, password.current.value))
     }
 
     return (
         <form>
-            <select ref={apartment}>
+            <select ref={apartment} className="form-control">
                 <option disabled value="">Оберіть адресу проживання</option>
                 {serializedSettlements.map(settlement =>
-                    <option value={settlement.id}>
+                    <option key={settlement.id} value={settlement.id}>
                         {settlement.name}
                     </option>
                 )}
