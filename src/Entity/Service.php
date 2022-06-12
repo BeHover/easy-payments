@@ -82,7 +82,7 @@ class Service
 
     public function getPricePerUnit(): ?float
     {
-        return $this->pricePerUnit;
+        return (float) $this->pricePerUnit;
     }
 
     public function setPricePerUnit(float $pricePerUnit): self
@@ -94,7 +94,7 @@ class Service
 
     public function getPricePerHuman(): ?float
     {
-        return $this->pricePerHuman;
+        return (float) $this->pricePerHuman;
     }
 
     public function setPricePerHuman(float $pricePerHuman): self
